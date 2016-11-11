@@ -1,10 +1,17 @@
 *.class
+
 .project
 
+
 /bin
-/.settings
+/
+.settings
+
 /test
 
+
+
 # Package Files #
+
 *.jar
 
