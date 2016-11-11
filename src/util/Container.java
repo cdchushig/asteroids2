@@ -4,6 +4,7 @@ import static org.lwjgl.opengl.GL11.glColor3f;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.logging.Logger;
 
 import mundo.ObjetoJuegoNodoImpl;
@@ -26,6 +27,7 @@ public class Container {
 	 * @param node
 	 */
 	public Container(Node node) {
+		this.node = node;
 		this.objetoJuegoNodoCol = this.init(node);
 	}
 
@@ -37,7 +39,7 @@ public class Container {
 	private ArrayList<ObjetoJuegoNodoImpl> init(Node node) {
 		ArrayList<ObjetoJuegoNodoImpl> lst = new ArrayList<ObjetoJuegoNodoImpl>();
 		for (int i = 0; i < GameConstants.WORLD_NUM_ASTEROIDS; i++) {
-			lst.add(new ObjetoJuegoNodoImpl(node, i));
+			lst.add(new ObjetoJuegoNodoImpl(i, node));
 		}
 		return lst;
 	}
@@ -47,23 +49,28 @@ public class Container {
 	 * @param o
 	 */
 	public synchronized void addObjetoJuegoNodo(ObjetoJuegoNodoImpl o) {		
-		
-		
-		if(this.objetoJuegoNodoCol.contains(o)) {
-			
-			log.info("*****IS INCLUDED*******" + o.getId() + "idnode: " + o.getNode().getId()); 
-
+		if(this.getObjects().contains(o)) {	
+			log.info("*****IS INCLUDED******* idnode: " + o.getNode().getId()); 
 			this.objetoJuegoNodoCol.set(this.objetoJuegoNodoCol.indexOf(o), o);
-
 		} else {
-			log.info("***add ***");
-
+			log.info("*** ADD o.id: " + o.getId() + " idNode: " + o.getNode().getId());
 			this.objetoJuegoNodoCol.add(o);	
-
 		}
-		
 	}
 	
+	
+	/**
+	 * Eliminar objetos del cliente en el mundo del server
+	 * @param idNode
+	 */
+	public synchronized void removeObjetoJuegoNodo(Integer idNode) {
+		Iterator<ObjetoJuegoNodoImpl> it = this.objetoJuegoNodoCol.iterator();
+		ObjetoJuegoNodoImpl o = null;
+		while(it.hasNext()) {
+			o = it.next();
+			this.objetoJuegoNodoCol.remove(o);
+		}
+	}
 	
 	/**
 	 * Devolver un ObjetoJuegoNodo
@@ -91,15 +98,13 @@ public class Container {
 		o.update(diff);
 	}
 	
-	public void draw3d(int numObj) {
-		float fase = 6.5f*((float)Math.PI)/8*(float)50;
-
-		float R = ((float)Math.sin(fase)+1)/2f;
-		float G = ((float)Math.cos(fase)+1)/2f;
-		float B = ((float)Math.sin(-fase)+1)/2f;
+	public void draw(Integer id, Integer idNode) {
+		float phase = 6.5f*((float)Math.PI)/8*(float)idNode;
+		float R = ((float)Math.sin(phase)+1)/2f;
+		float G = ((float)Math.cos(phase)+1)/2f;
+		float B = ((float)Math.sin(-phase)+1)/2f;
 		glColor3f(R, G, B);
-		this.objetoJuegoNodoCol.get(numObj).getObjetoJuego().draw3d();
-		
+		this.objetoJuegoNodoCol.get(id).getObjetoJuego().draw();
 	}
 	
 	/**

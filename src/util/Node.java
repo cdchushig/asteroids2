@@ -29,7 +29,7 @@ public class Node implements Serializable{
 		return r.nextInt(GameConstants.GENERAL_MAX_RANDOM);
 	}
 	
-	
+	// Getters and setters
 	
 	public Integer getId() {
 		return id;

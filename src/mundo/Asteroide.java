@@ -96,10 +96,12 @@ public class Asteroide extends ObjetoJuegoImpl {
 	}
 	
 	@Override
-	public void draw3d() {
+	public void draw() {
 		glPushMatrix();
 		glLoadIdentity();
-		glTranslatef(getPosition().getX()-(float)800/2f, getPosition().getY()-(float)600/2f, getPosition().getZ());
+		glTranslatef(getPosition().getX()-(float)GameConstants.WORLD_WIDTH/2f, 
+				 	 getPosition().getY()-(float)GameConstants.WORLD_HEIGHT/2f, 
+				 	 getPosition().getZ());
 		
 		Sphere s = new Sphere();
 	    s.draw(GameConstants.ASTEROID_SIZE, 20, 16);

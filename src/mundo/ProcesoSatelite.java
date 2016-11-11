@@ -22,14 +22,17 @@ public class ProcesoSatelite {
 	private MundoJuego world;
 	
 	/**
-	 * Constructor ProcesoSatelite
-	 * @param isClient
+	 * Constructor ProcesoSatelite servidor
 	 */
 	public ProcesoSatelite() {
 		this.nodes = new ArrayList<Node>();
-		this.node = new Node();
+		this.node = new Node(Boolean.TRUE);
 	}
 	
+	/**
+	 * Constructor ProcesoSatelite cliente
+	 * @param node
+	 */
 	public ProcesoSatelite(Node node) {
 		this.node = node;
 	}

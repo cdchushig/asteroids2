@@ -59,19 +59,20 @@ public class MundoJuego extends Thread{
 	 * @param diff
 	 */
 	public synchronized void updateContainer(Long diff) {
-		for (ObjetoJuegoNodoImpl o : this.container.getObjects()) {
-			this.container.updateObjetoJuegoNodoImpl(o, diff);
-		}
-		
-//		// Diferenciar entre elementos de Container propio
-//		Iterator<ObjetoJuegoNodoImpl> it = this.container.getObjects().iterator();
-//		ObjetoJuegoNodoImpl o;
-//		while(it.hasNext()) {
-//			o  = it.next();
-//			if (o.getNode().getId() == this.container.getNode().getId()) {
-//				this.container.updateObjetoJuegoNodoImpl(o, diff);
-//			}
+//		for (ObjetoJuegoNodoImpl o : this.container.getObjects()) {
+//			
+//			this.container.updateObjetoJuegoNodoImpl(o, diff);
 //		}
+		
+		// Diferenciar entre elementos de Container propio
+		Iterator<ObjetoJuegoNodoImpl> it = this.container.getObjects().iterator();
+		ObjetoJuegoNodoImpl o;
+		while(it.hasNext()) {
+			o  = it.next();
+			if (o.getNode().getId() == this.container.getNode().getId()) {
+				this.container.updateObjetoJuegoNodoImpl(o, diff);
+			}
+		}
 	}
 	
 	public synchronized void finish() {

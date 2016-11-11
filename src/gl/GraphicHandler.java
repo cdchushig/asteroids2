@@ -211,12 +211,12 @@ public class GraphicHandler extends Thread{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		this.drawLimit();
 		// Dibujar asteroides de container
-//		for (ObjetoJuegoNodoImpl o : this.container.getObjects()) {
-//			this.draw(o.getObjetoJuego());
+//		for (int i = 0; i < this.container.getSize(); i++) {
+//			this.container.draw(i, this.container.getNode().getId());
 //		}
 		
-		for (int i = 0; i < this.container.getSize(); i++) {
-			this.container.draw3d(i);
+		for (ObjetoJuegoNodoImpl o : this.container.getObjects()) {
+			this.container.draw(o.getId(), o.getNode().getId());
 		}
 		
 		Display.update();	

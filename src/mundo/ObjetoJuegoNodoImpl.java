@@ -18,9 +18,9 @@ public class ObjetoJuegoNodoImpl implements Serializable{
 	 * Constructor ObjetoJuegoNodoImpl
 	 * @param node
 	 */
-	public ObjetoJuegoNodoImpl(Node node, Integer id) {
-		this.node = node;
+	public ObjetoJuegoNodoImpl(Integer id, Node node) {
 		this.id = id;
+		this.node = node;
 		this.objetoJuego = this.buildObjetoJuego();
 	}
 	
@@ -48,6 +48,23 @@ public class ObjetoJuegoNodoImpl implements Serializable{
 		
 		return new Asteroide(position, speed, orientation);
 	}
+	
+	 @Override
+	 public boolean equals(Object o) {
+		 if (this == o)
+			 return true;
+		 if (o == null)
+			 return false;
+		 if (getClass() != o.getClass())
+			 return false;
+		 ObjetoJuegoNodoImpl other = (ObjetoJuegoNodoImpl) o;
+		 if (this.node.getId() != other.getNode().getId())
+			 return false;
+		 if (this.id != other.getId()) 
+			 return false;
+
+		 return true;
+	 }
 	
 	// Getters and setters
 
