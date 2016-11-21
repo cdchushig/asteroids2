@@ -43,11 +43,8 @@ public class Handler extends Thread {
 		try {
 			
 			log.info("****Nueva conexion****");
-			
 			this.init();
-		
 			Object oabs = in.readObject();
-			
 			if (oabs instanceof Integer) {
 				Node node = this.psatellite.generateNode();
 				this.out.writeObject(node);
@@ -60,9 +57,7 @@ public class Handler extends Thread {
 				log.info("Objeto recibido " + o.toString());
 				this.psatellite.addObjetoJuegoNodo((ObjetoJuegoNodoImpl) o);
 			}
-			
-			
-
+		
 			this.out.close();
 			this.in.close();
 			

@@ -43,6 +43,7 @@ import static org.lwjgl.opengl.GL11.glTranslatef;
 import static org.lwjgl.opengl.GL11.glVertex3f;
 
 import java.nio.FloatBuffer;
+import java.util.Iterator;
 import java.util.logging.Logger;
 
 import mundo.ObjetoJuegoImpl;
@@ -211,19 +212,38 @@ public class GraphicHandler extends Thread{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		this.drawLimit();
 		// Dibujar asteroides de container
-//		for (int i = 0; i < this.container.getSize(); i++) {
-//			this.container.draw(i, this.container.getNode().getId());
+		for (int i = 0; i < this.container.getSize(); i++) {
+			this.container.draw(i, this.container.getObjectoJuegoNodo(i).getNode().getId());
+		}
+			
+//		for (ObjetoJuegoNodoImpl o : this.getContainer().getObjects()) {
+//			this.container.draw(o.getId(), o.getNode().getId());
 //		}
 		
-		for (ObjetoJuegoNodoImpl o : this.container.getObjects()) {
-			this.container.draw(o.getId(), o.getNode().getId());
-		}
+//		for (ObjetoJuegoNodoImpl o : this.getContainer().getObjects()) {
+//			this.container.draw(o.getId(), o.getNode().getId());
+//		}
+		
+//		for (ObjetoJuegoNodoImpl o : this.container.getObjects()) {
+//			this.draw(o.getObjetoJuego());
+//		}
+		
+//		Iterator<ObjetoJuegoNodoImpl> it = this.getContainer().getObjects().iterator();
+//		ObjetoJuegoNodoImpl o = null;
+//		while(it.hasNext()) {
+//			o = it.next();
+//			this.draw(o.getObjetoJuego(), o.getId());
+//		}
 		
 		Display.update();	
 	}
 	
-	private void draw(ObjetoJuegoImpl o) {
-		float phase = 6.5f * ((float)Math.PI)/8 * (float) 2;
+	public synchronized Container getContainer() {
+		return this.container;
+	}
+	
+	private synchronized void draw(ObjetoJuegoImpl o, Integer idNode) {
+		float phase = 6.5f * ((float)Math.PI)/idNode * (float) 2;
 		float red = ((float) Math.sin(phase)+1)/2f;
 		float green = ((float) Math.cos(phase)+1)/2f;
 		float blue = ((float) Math.sin(-phase)+1)/2f;

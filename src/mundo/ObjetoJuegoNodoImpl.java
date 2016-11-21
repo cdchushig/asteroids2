@@ -50,19 +50,18 @@ public class ObjetoJuegoNodoImpl implements Serializable{
 	}
 	
 	 @Override
-	 public boolean equals(Object o) {
-		 if (this == o)
+	 public boolean equals(Object obj) {
+		 if (this == obj)
 			 return true;
-		 if (o == null)
+		 if (obj == null)
 			 return false;
-		 if (getClass() != o.getClass())
+		 if (getClass() != obj.getClass())
 			 return false;
-		 ObjetoJuegoNodoImpl other = (ObjetoJuegoNodoImpl) o;
-		 if (this.node.getId() != other.getNode().getId())
-			 return false;
+		 ObjetoJuegoNodoImpl other = (ObjetoJuegoNodoImpl) obj;
 		 if (this.id != other.getId()) 
 			 return false;
-
+		 if (this.node.getId() != other.getNode().getId())
+			 return false;
 		 return true;
 	 }
 	

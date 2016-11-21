@@ -8,8 +8,10 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Logger;
 
+import mundo.MundoJuego;
 import mundo.ObjetoJuegoNodoImpl;
 import mundo.ProcesoSatelite;
+import util.Container;
 import util.GameConstants;
 import util.Node;
 
@@ -30,6 +32,9 @@ public class Client extends Thread{
 	private String server;
 	private Node node;
 	
+	private Container container;
+	private MundoJuego world;
+	
 	/**
 	 * Constructor Client
 	 */
@@ -45,11 +50,15 @@ public class Client extends Thread{
 	}
 	
 	private void init() {
-		this.psatellite = new ProcesoSatelite(this.node);
-		this.psatellite.start();
+//		this.psatellite = new ProcesoSatelite(this.node);
+//		this.psatellite.start();
 		//this.ghandler = new GraphicHandler(this.psatellite.getContainer());
 		//this.ghandler.start();
 		//this.psatellite.waitDisplay();
+		this.container = new Container(this.node);	
+		this.world = new MundoJuego(this.container, Boolean.TRUE);
+		this.world.start();
+		
 	}
 	
 	/**
@@ -80,19 +89,16 @@ public class Client extends Thread{
 	 */
 	private void establishConnection() {
 		try {		
-			while(Boolean.TRUE) {
-				
-				
-				
-				for (int i = 0; i < this.psatellite.getContainer().getSize(); i++) {
-					this.out.writeObject(this.psatellite.getContainer().getObjectoJuegoNodo(i));
+			while(this.isConnectedStream()) {
+				//for (int i = 0; i < this.psatellite.getContainer().getSize(); i++) {
+				for (int i = 0; i < this.container.getSize(); i++) {
+
+					this.out.writeObject(this.container.getObjectoJuegoNodo(i));
 					this.out.flush();
 					this.out.reset();
-					log.info("From client idnode: " + this.node.getId() + " object id: " + i);
-					sleep(1000);
+//					log.info("From client idnode: " + this.node.getId() + " object id: " + i);
+					sleep(10000);
 				}
-				
-				
 			}
 			
 			this.out.close();
@@ -106,6 +112,14 @@ public class Client extends Thread{
 	
 	}
 	
+	
+	private Boolean isConnectedStream() {
+		Boolean isConnected = Boolean.TRUE;
+		if ((out == null) || (this.in == null)) {
+			isConnected = Boolean.FALSE;
+		}
+		return isConnected;
+	}
 	
 	public static void main(String[] args) {
 		Client client = new Client(GameConstants.SERVER_HOSTNAME, GameConstants.SERVER_PORT);

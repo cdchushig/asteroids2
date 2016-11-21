@@ -49,11 +49,11 @@ public class Container {
 	 * @param o
 	 */
 	public synchronized void addObjetoJuegoNodo(ObjetoJuegoNodoImpl o) {		
-		if(this.getObjects().contains(o)) {	
+		if(this.objetoJuegoNodoCol.contains(o)) {	
 			log.info("*****IS INCLUDED******* idnode: " + o.getNode().getId()); 
 			this.objetoJuegoNodoCol.set(this.objetoJuegoNodoCol.indexOf(o), o);
 		} else {
-			log.info("*** ADD o.id: " + o.getId() + " idNode: " + o.getNode().getId());
+			log.info("*** ADD OBJECT o.id: " + o.getId() + " idNode: " + o.getNode().getId());
 			this.objetoJuegoNodoCol.add(o);	
 		}
 	}
