@@ -15,7 +15,7 @@ public class ObjetoJuegoNodoImpl implements Serializable{
 	private static final long serialVersionUID = -3824758667240398563L;
 	private ObjetoJuegoImpl objetoJuego;
 	public Node node;
-	public int id;
+	public Integer id;
 		
 	/**
 	 * Constructor ObjetoJuegoNodoImpl
@@ -62,7 +62,7 @@ public class ObjetoJuegoNodoImpl implements Serializable{
 		 if (getClass() != obj.getClass())
 			 return false;
 		 ObjetoJuegoNodoImpl other = (ObjetoJuegoNodoImpl) obj;
-		 if (id != other.id) 
+		 if (id.intValue() != other.getId().intValue()) 
 			 return false;
 		 return true;
 	 }

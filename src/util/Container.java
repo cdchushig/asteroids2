@@ -38,7 +38,7 @@ public class Container {
 	 */
 	private ArrayList<ObjetoJuegoNodoImpl> init(Node node) {
 		ArrayList<ObjetoJuegoNodoImpl> lst = new ArrayList<ObjetoJuegoNodoImpl>();
-		for (int i = 0; i < GameConstants.WORLD_NUM_ASTEROIDS; i++) {
+		for (int i = this.node.getId(); i < (GameConstants.WORLD_NUM_ASTEROIDS + this.node.getId()); i++) {
 			lst.add(new ObjetoJuegoNodoImpl(i, node));
 		}
 		return lst;

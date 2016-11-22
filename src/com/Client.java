@@ -50,15 +50,11 @@ public class Client extends Thread{
 	}
 	
 	private void init() {
-//		this.psatellite = new ProcesoSatelite(this.node);
-//		this.psatellite.start();
-		//this.ghandler = new GraphicHandler(this.psatellite.getContainer());
-		//this.ghandler.start();
-		//this.psatellite.waitDisplay();
-		this.container = new Container(this.node);	
-		this.world = new MundoJuego(this.container, Boolean.TRUE);
-		this.world.start();
-		
+		this.psatellite = new ProcesoSatelite(this.node);
+		this.psatellite.start();
+		this.ghandler = new GraphicHandler(this.psatellite.getContainer());
+		this.ghandler.start();
+		this.psatellite.waitDisplay();
 	}
 	
 	/**
@@ -90,13 +86,20 @@ public class Client extends Thread{
 	private void establishConnection() {
 		try {		
 			while(this.isConnectedStream()) {
-				//for (int i = 0; i < this.psatellite.getContainer().getSize(); i++) {
-				for (int i = 0; i < this.container.getSize(); i++) {
-					this.out.writeObject(this.container.getObjectoJuegoNodo(i));
+//				for (int i = 0; i < this.psatellite.getContainer().getSize(); i++) {
+//					this.out.writeObject(this.psatellite.getContainer().getObjectoJuegoNodo(i));
+//					this.out.flush();
+//					this.out.reset();
+//					sleep(1000);
+//				}
+				
+				for (ObjetoJuegoNodoImpl o : this.psatellite.getContainer().getObjects()) {
+					this.out.writeObject(o);
 					this.out.flush();
 					this.out.reset();
 					sleep(1000);
 				}
+				
 			}
 			
 			this.out.close();

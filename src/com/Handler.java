@@ -52,9 +52,7 @@ public class Handler extends Thread {
 			this.init();
 			Object oabs = in.readObject();
 			if (oabs instanceof Integer) {
-				//Node node = this.psatellite.generateNode();
-				
-				Node node = new Node();
+				Node node = this.psatellite.generateNode();				
 				this.out.writeObject(node);
 				this.out.flush();
 				log.info("idnode: " + node.getId());
