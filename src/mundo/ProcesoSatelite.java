@@ -12,7 +12,7 @@ import util.Node;
  * @author Titua
  *
  */
-public class ProcesoSatelite {
+public class ProcesoSatelite{
 
 	public final Logger log = Logger.getLogger("mundo.ProcesoSatelite");
 	private Node node;

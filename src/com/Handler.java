@@ -22,6 +22,7 @@ public class Handler extends Thread {
 	private ProcesoSatelite psatellite;
 	ObjectOutputStream out;
 	ObjectInputStream in;
+	private Server server;
 	
 	/**
 	 * Constructor Handler
@@ -31,6 +32,11 @@ public class Handler extends Thread {
 	public Handler(Socket socket, ProcesoSatelite psatellite) {
 		this.socket = socket;
 		this.psatellite = psatellite;
+	}
+	
+	public Handler(Socket socket, Server server) {
+		this.socket = socket;
+		this.server = server;
 	}
 	
 	
@@ -46,7 +52,9 @@ public class Handler extends Thread {
 			this.init();
 			Object oabs = in.readObject();
 			if (oabs instanceof Integer) {
-				Node node = this.psatellite.generateNode();
+				//Node node = this.psatellite.generateNode();
+				
+				Node node = new Node();
 				this.out.writeObject(node);
 				this.out.flush();
 				log.info("idnode: " + node.getId());

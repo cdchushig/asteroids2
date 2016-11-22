@@ -7,13 +7,16 @@ import util.GameConstants;
 import util.Node;
 import util.Vector;
 
-@SuppressWarnings("serial")
 public class ObjetoJuegoNodoImpl implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3824758667240398563L;
 	private ObjetoJuegoImpl objetoJuego;
-	private Node node;
-	private Integer id;
-	
+	public Node node;
+	public int id;
+		
 	/**
 	 * Constructor ObjetoJuegoNodoImpl
 	 * @param node
@@ -48,6 +51,7 @@ public class ObjetoJuegoNodoImpl implements Serializable{
 		
 		return new Asteroide(position, speed, orientation);
 	}
+
 	
 	 @Override
 	 public boolean equals(Object obj) {
@@ -58,12 +62,11 @@ public class ObjetoJuegoNodoImpl implements Serializable{
 		 if (getClass() != obj.getClass())
 			 return false;
 		 ObjetoJuegoNodoImpl other = (ObjetoJuegoNodoImpl) obj;
-		 if (this.id != other.getId()) 
-			 return false;
-		 if (this.node.getId() != other.getNode().getId())
+		 if (id != other.id) 
 			 return false;
 		 return true;
 	 }
+	 
 	
 	// Getters and setters
 

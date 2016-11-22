@@ -6,7 +6,7 @@ import java.util.Random;
 @SuppressWarnings("serial")
 public class Node implements Serializable{
 
-	private Integer id;
+	public Integer id;
 	
 	public Node() {
 		this.id = this.generateId();

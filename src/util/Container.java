@@ -48,7 +48,10 @@ public class Container {
 	 * Agregar un ObjetoJuegoNodo
 	 * @param o
 	 */
-	public synchronized void addObjetoJuegoNodo(ObjetoJuegoNodoImpl o) {		
+	public void addObjetoJuegoNodo(ObjetoJuegoNodoImpl o) {	
+	
+		log.info(";;;addObjetoJuegoNodo");
+		
 		if(this.objetoJuegoNodoCol.contains(o)) {	
 			log.info("*****IS INCLUDED******* idnode: " + o.getNode().getId()); 
 			this.objetoJuegoNodoCol.set(this.objetoJuegoNodoCol.indexOf(o), o);

@@ -8,11 +8,15 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
+import mundo.MundoJuego;
+import mundo.ObjetoJuegoNodoImpl;
 import mundo.ProcesoSatelite;
 
 import org.lwjgl.opengl.Display;
 
+import util.Container;
 import util.GameConstants;
+import util.Node;
 
 /**
  * Server aplicacion
@@ -25,6 +29,9 @@ public class Server extends Thread {
 	private ProcesoSatelite psatellite;
 	private GraphicHandler ghandler;
 	
+	private Container container;
+	private MundoJuego world;
+	
 	/**
 	 * Inicializar ProcesoSatelite, GraphicHandler
 	 */
@@ -34,6 +41,18 @@ public class Server extends Thread {
 		this.ghandler = new GraphicHandler(this.psatellite.getContainer());
 		this.ghandler.start();
 		this.psatellite.waitDisplay();
+//		Node node = new Node();
+//		this.container = new Container(node);
+//		MundoJuego world2 = new MundoJuego(container, Boolean.TRUE);
+//		world2.start();
+//		GraphicHandler ghandler2 = new GraphicHandler(this.container);
+//		//this.ghandler = new GraphicHandler(this.psatellite.getContainer());
+//		ghandler2.start();
+//		this.container.waitDisplay();
+	}
+	
+	public void addObjetoJuegoNodo(ObjetoJuegoNodoImpl o) {
+		this.container.addObjetoJuegoNodo(o);
 	}
 	
 	public void run() {

@@ -69,9 +69,7 @@ public class MundoJuego extends Thread{
 		ObjetoJuegoNodoImpl o;
 		while(it.hasNext()) {
 			o  = it.next();
-			if (o.getNode().getId() == this.container.getNode().getId()) {
-				this.container.updateObjetoJuegoNodoImpl(o, diff);
-			}
+			this.container.updateObjetoJuegoNodoImpl(o, diff);
 		}
 	}
 	

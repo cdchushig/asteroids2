@@ -92,12 +92,10 @@ public class Client extends Thread{
 			while(this.isConnectedStream()) {
 				//for (int i = 0; i < this.psatellite.getContainer().getSize(); i++) {
 				for (int i = 0; i < this.container.getSize(); i++) {
-
 					this.out.writeObject(this.container.getObjectoJuegoNodo(i));
 					this.out.flush();
 					this.out.reset();
-//					log.info("From client idnode: " + this.node.getId() + " object id: " + i);
-					sleep(10000);
+					sleep(1000);
 				}
 			}
 			
