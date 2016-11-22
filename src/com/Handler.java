@@ -22,7 +22,6 @@ public class Handler extends Thread {
 	private ProcesoSatelite psatellite;
 	ObjectOutputStream out;
 	ObjectInputStream in;
-	private Server server;
 	
 	/**
 	 * Constructor Handler
@@ -33,12 +32,7 @@ public class Handler extends Thread {
 		this.socket = socket;
 		this.psatellite = psatellite;
 	}
-	
-	public Handler(Socket socket, Server server) {
-		this.socket = socket;
-		this.server = server;
-	}
-	
+
 	
 	private void init() throws IOException{
 		this.out = new ObjectOutputStream(socket.getOutputStream());

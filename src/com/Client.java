@@ -8,10 +8,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Logger;
 
-import mundo.MundoJuego;
 import mundo.ObjetoJuegoNodoImpl;
 import mundo.ProcesoSatelite;
-import util.Container;
 import util.GameConstants;
 import util.Node;
 
@@ -32,9 +30,6 @@ public class Client extends Thread{
 	private String server;
 	private Node node;
 	
-	private Container container;
-	private MundoJuego world;
-	
 	/**
 	 * Constructor Client
 	 */
@@ -45,11 +40,14 @@ public class Client extends Thread{
 	
 	public void run() {
 		this.initConnection();
-		this.init();
+		this.initComponents();
 		this.establishConnection();	
 	}
 	
-	private void init() {
+	/**
+	 * Iniciar ProcesoSatelite, GraphicHandler
+	 */
+	private void initComponents() {
 		this.psatellite = new ProcesoSatelite(this.node);
 		this.psatellite.start();
 		this.ghandler = new GraphicHandler(this.psatellite.getContainer());
@@ -65,13 +63,14 @@ public class Client extends Thread{
 			this.socket = new Socket(this.server, this.port);
 			this.out = new ObjectOutputStream(this.socket.getOutputStream());
 			this.in = new ObjectInputStream(this.socket.getInputStream());
-			log.info("Connected with server in port: " + this.port);
 			
 			this.out.writeObject(GameConstants.PROTOCOL_INIT);
 			this.out.flush();
 			
 			this.node = (Node) this.in.readObject();
 			
+			log.info("Connected with server in port: " + this.port + "Node id: " + this.node);
+		
 		} catch (IOException e) {
 			log.warning("Error init: Creating streams");
 			e.printStackTrace();
@@ -85,21 +84,13 @@ public class Client extends Thread{
 	 */
 	private void establishConnection() {
 		try {		
-			while(this.isConnectedStream()) {
-//				for (int i = 0; i < this.psatellite.getContainer().getSize(); i++) {
-//					this.out.writeObject(this.psatellite.getContainer().getObjectoJuegoNodo(i));
-//					this.out.flush();
-//					this.out.reset();
-//					sleep(1000);
-//				}
-				
+			while(this.isConnectedStream()) {				
 				for (ObjetoJuegoNodoImpl o : this.psatellite.getContainer().getObjects()) {
 					this.out.writeObject(o);
 					this.out.flush();
 					this.out.reset();
 					sleep(1000);
 				}
-				
 			}
 			
 			this.out.close();

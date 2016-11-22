@@ -48,19 +48,14 @@ public class Container {
 	 * Agregar un ObjetoJuegoNodo
 	 * @param o
 	 */
-	public void addObjetoJuegoNodo(ObjetoJuegoNodoImpl o) {	
-	
-		log.info(";;;addObjetoJuegoNodo");
-		
+	public void addObjetoJuegoNodo(ObjetoJuegoNodoImpl o) {			
 		if(this.objetoJuegoNodoCol.contains(o)) {	
-			log.info("*****IS INCLUDED******* idnode: " + o.getNode().getId()); 
 			this.objetoJuegoNodoCol.set(this.objetoJuegoNodoCol.indexOf(o), o);
 		} else {
-			log.info("*** ADD OBJECT o.id: " + o.getId() + " idNode: " + o.getNode().getId());
+			log.info("*** Node id: " + o.getNode().getId() + " Objeto agregado id: " + o.getId());
 			this.objetoJuegoNodoCol.add(o);	
 		}
 	}
-	
 	
 	/**
 	 * Eliminar objetos del cliente en el mundo del server
