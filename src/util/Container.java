@@ -64,24 +64,21 @@ public class Container {
 	 */
 	public void removeObjetoJuegoNodo(Integer idNode) {	
 		
-		//ArrayList<ObjetoJuegoNodoImpl> ojns = null;
-		//Collection<ObjetoJuegoNodoImpl> ojns = this.getObjects();
-		//ojns.removeIf(arg0)
-		
+		Collection<ObjetoJuegoNodoImpl> ojns = new ArrayList<ObjetoJuegoNodoImpl>();
 		
 		for(int i=0; i < this.getSize(); i++) {
 			ObjetoJuegoNodoImpl o = this.getObjectoJuegoNodo(i);
 			if (o.getNode().getId().intValue() == idNode.intValue()) {
-				this.objetoJuegoNodoCol.remove(o);
-				//ojns.add(o);
-				log.info("Removed id: " + o.getId() + " node id: " + o.getNode().getId());
+				ojns.add(o);
 			}
 		}
+				
+		this.getObjects().removeAll(ojns);
 		
-//		for (ObjetoJuegoNodoImpl o : ojns) {
-//			log.info("Removed id: " + o.getId() + " node id: " + o.getNode().getId());	
-//		}
-
+		for (ObjetoJuegoNodoImpl o : ojns) {
+			log.info("Removed id: " + o.getId() + " node id: " + o.getNode().getId());	
+		}
+		
 	}
 	
 	/**
