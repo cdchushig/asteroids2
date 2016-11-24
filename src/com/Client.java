@@ -91,7 +91,7 @@ public class Client extends Thread{
 					this.out.writeObject(o);
 					this.out.flush();
 					this.out.reset();
-					sleep(1000);
+					sleep(10);
 				}
 			}
 			
