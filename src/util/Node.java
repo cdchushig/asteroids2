@@ -12,6 +12,14 @@ public class Node implements Serializable{
 		this.id = this.generateId();
 	}
 	
+	/**
+	 * Constructor que tiene id asignado previamente
+	 * @param id
+	 */
+	public Node(Integer id) {
+		this.id = id;
+	}
+	
 	public Node(Boolean isServer) {
 		this.id = GameConstants.SATELLITE_MAIN_NODE;
 	}

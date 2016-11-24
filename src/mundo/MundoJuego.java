@@ -43,6 +43,11 @@ public class MundoJuego extends Thread{
 				e.printStackTrace();
 			}	
 		}
+		log.info("MundoJuego finished");
+	}
+	
+	public Boolean isWorkingWorld(){
+		return (Display.isActive());
 	}
 	
 	/**
@@ -59,12 +64,6 @@ public class MundoJuego extends Thread{
 	 * @param diff
 	 */
 	public synchronized void updateContainer(Long diff) {
-//		for (ObjetoJuegoNodoImpl o : this.container.getObjects()) {
-//			
-//			this.container.updateObjetoJuegoNodoImpl(o, diff);
-//		}
-		
-		// Diferenciar entre elementos de Container propio
 		Iterator<ObjetoJuegoNodoImpl> it = this.container.getObjects().iterator();
 		ObjetoJuegoNodoImpl o;
 		while(it.hasNext()) {

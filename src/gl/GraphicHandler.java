@@ -67,11 +67,12 @@ public class GraphicHandler extends Thread{
 
 	
 	public final Logger log = Logger.getLogger("gl.GraphicHandler");
-	public static final int fps = 60;
 	private Container container;
+	private Boolean isActive;
 	
 	public GraphicHandler(Container container) {
 		this.container = container;
+		this.isActive = Boolean.TRUE;
 	}
 	
 	
@@ -80,12 +81,18 @@ public class GraphicHandler extends Thread{
 		this.setCamera();
 		this.setLight();
 		
-		while((!Display.isCloseRequested())) {
+		while(!Display.isCloseRequested()) {
 			this.drawObjects();
 		}
 		// Si cerrar destroy el display
 		Display.destroy();
+		log.info("GraphicHandler destroyed");
+		this.isActive = Boolean.FALSE;
 	}	
+	
+	public synchronized Boolean isActive() {
+		return this.isActive;
+	}
 	
 	private void createDisplay() {
 		try {
@@ -210,7 +217,7 @@ public class GraphicHandler extends Thread{
 	
 	
 	private void drawObjects() {
-		Display.sync(fps);
+		Display.sync(GameConstants.GL_FPS);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		this.drawLimit();
 		// Dibujar asteroides de container

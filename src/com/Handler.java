@@ -6,8 +6,11 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Logger;
 
+import org.lwjgl.opengl.Display;
+
 import mundo.ObjetoJuegoNodoImpl;
 import mundo.ProcesoSatelite;
+import util.GameConstants;
 import util.Node;
 
 /**
@@ -41,23 +44,26 @@ public class Handler extends Thread {
 	
 	public void run() {
 		try {
-			
-			log.info("****Nueva conexion****");
 			this.init();
 			Object oabs = in.readObject();
 			if (oabs instanceof Integer) {
 				Node node = this.psatellite.generateNode();				
 				this.out.writeObject(node);
 				this.out.flush();
-				log.info("idnode: " + node.getId());
+				log.info("****Nueva conexion. Node id: " + node.getId());
 			} 
 			
 			ObjetoJuegoNodoImpl o;
 			while((o = (ObjetoJuegoNodoImpl) this.in.readObject()) != null) {
-				log.info("Objeto recibido " + o.toString());
-				this.psatellite.addObjetoJuegoNodo((ObjetoJuegoNodoImpl) o);
+				if (o.getId().intValue() == GameConstants.PROTOCOL_FINISH.intValue()) {
+					this.psatellite.getContainer().removeObjetoJuegoNodo(o.getNode().getId());
+				} else {
+					this.psatellite.addObjetoJuegoNodo((ObjetoJuegoNodoImpl) o);
+				}
 			}
 		
+			log.info("Handler finished");
+			
 			this.out.close();
 			this.in.close();
 			

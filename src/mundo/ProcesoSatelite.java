@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.logging.Logger;
 
 import util.Container;
+import util.GameConstants;
 import util.Node;
 
 /**
@@ -20,6 +21,7 @@ public class ProcesoSatelite{
 	private Collection<Node> nodes;
 	private Container container;
 	private MundoJuego world;
+	private Boolean finishProcess;
 	
 	/**
 	 * Constructor ProcesoSatelite servidor
@@ -49,6 +51,16 @@ public class ProcesoSatelite{
 	public void start() {
 		this.init();
 		log.info("ProcesoSatelite started!");
+	}
+	
+	public Boolean isWorkingProcess() {
+		return this.world.isWorkingWorld();
+	}
+	
+	public ObjetoJuegoNodoImpl finishProtocol(Integer idNode) {
+		Node n = new Node(idNode);
+		ObjetoJuegoNodoImpl o = new ObjetoJuegoNodoImpl(GameConstants.PROTOCOL_FINISH, n);
+		return o;
 	}
 	
 	/**
@@ -120,6 +132,14 @@ public class ProcesoSatelite{
 
 	public void setContainer(Container container) {
 		this.container = container;
+	}
+
+	public Boolean getFinishProcess() {
+		return finishProcess;
+	}
+
+	public void setFinishProcess(Boolean finishProcess) {
+		this.finishProcess = finishProcess;
 	}
 	
 }

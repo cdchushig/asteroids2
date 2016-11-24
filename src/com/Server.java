@@ -41,19 +41,22 @@ public class Server extends Thread {
 	
 		try {
 			ServerSocket server = new ServerSocket(GameConstants.SERVER_PORT);
-			//server.setSoTimeout(1000);
 			ExecutorService pool = Executors.newFixedThreadPool(GameConstants.SERVER_MAX_CLIENTS);
 			
 			while(Display.isCreated()) {
+			//while(this.ghandler.isActive()) {
 				Handler handler = new Handler(server.accept(), this.psatellite);
 				pool.execute(handler);
 			}
 			
 			server.close();
+			pool.shutdown();
 		
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
+		
+		log.info("Server shutdown");
 		
 	}
 	

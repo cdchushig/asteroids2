@@ -5,6 +5,7 @@ import static org.lwjgl.opengl.GL11.glColor3f;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import mundo.ObjetoJuegoNodoImpl;
@@ -61,13 +62,26 @@ public class Container {
 	 * Eliminar objetos del cliente en el mundo del server
 	 * @param idNode
 	 */
-	public synchronized void removeObjetoJuegoNodo(Integer idNode) {
-		Iterator<ObjetoJuegoNodoImpl> it = this.objetoJuegoNodoCol.iterator();
-		ObjetoJuegoNodoImpl o = null;
-		while(it.hasNext()) {
-			o = it.next();
-			this.objetoJuegoNodoCol.remove(o);
+	public void removeObjetoJuegoNodo(Integer idNode) {	
+		
+		//ArrayList<ObjetoJuegoNodoImpl> ojns = null;
+		//Collection<ObjetoJuegoNodoImpl> ojns = this.getObjects();
+		//ojns.removeIf(arg0)
+		
+		
+		for(int i=0; i < this.getSize(); i++) {
+			ObjetoJuegoNodoImpl o = this.getObjectoJuegoNodo(i);
+			if (o.getNode().getId().intValue() == idNode.intValue()) {
+				this.objetoJuegoNodoCol.remove(o);
+				//ojns.add(o);
+				log.info("Removed id: " + o.getId() + " node id: " + o.getNode().getId());
+			}
 		}
+		
+//		for (ObjetoJuegoNodoImpl o : ojns) {
+//			log.info("Removed id: " + o.getId() + " node id: " + o.getNode().getId());	
+//		}
+
 	}
 	
 	/**
@@ -109,7 +123,7 @@ public class Container {
 	 * Retornar tamanio del contenedor
 	 * @return
 	 */
-	public synchronized Integer getSize() {
+	public Integer getSize() {
 		return objetoJuegoNodoCol.size();
 	}
 	

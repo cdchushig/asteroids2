@@ -7,12 +7,9 @@ import util.GameConstants;
 import util.Node;
 import util.Vector;
 
+@SuppressWarnings("serial")
 public class ObjetoJuegoNodoImpl implements Serializable{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3824758667240398563L;
 	private ObjetoJuegoImpl objetoJuego;
 	public Node node;
 	public Integer id;
@@ -33,6 +30,11 @@ public class ObjetoJuegoNodoImpl implements Serializable{
 	
 	// Metodos privados
 	
+	/**
+	 * Construir ObjetoJuegoImp con vectores
+	 * position, orientation, speed random
+	 * @return ObjetoJuegoImpl
+	 */
 	private ObjetoJuegoImpl buildObjetoJuego() {
 		
 		Random r = new Random();
@@ -67,7 +69,6 @@ public class ObjetoJuegoNodoImpl implements Serializable{
 		 return true;
 	 }
 	 
-	
 	// Getters and setters
 
 	public ObjetoJuegoImpl getObjetoJuego() {

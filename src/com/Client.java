@@ -8,6 +8,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Logger;
 
+import org.lwjgl.opengl.Display;
+
 import mundo.ObjetoJuegoNodoImpl;
 import mundo.ProcesoSatelite;
 import util.GameConstants;
@@ -84,7 +86,7 @@ public class Client extends Thread{
 	 */
 	private void establishConnection() {
 		try {		
-			while(this.isConnectedStream()) {				
+			while(this.isConnectedStream() && (Display.isCreated())) {				
 				for (ObjetoJuegoNodoImpl o : this.psatellite.getContainer().getObjects()) {
 					this.out.writeObject(o);
 					this.out.flush();
@@ -93,6 +95,11 @@ public class Client extends Thread{
 				}
 			}
 			
+			// Finalizar protocolo com
+			this.out.writeObject(this.psatellite.finishProtocol(this.node.getId()));
+			this.out.flush();
+			
+			// Cerrar streams
 			this.out.close();
 			this.in.close();
 			
@@ -104,6 +111,13 @@ public class Client extends Thread{
 	
 	}
 	
+	/**
+	 * Comprobar que el Display este activo
+	 * @return
+	 */
+	private Boolean isTx() {
+		return this.psatellite.isWorkingProcess();
+	}
 	
 	private Boolean isConnectedStream() {
 		Boolean isConnected = Boolean.TRUE;

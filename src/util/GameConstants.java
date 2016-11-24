@@ -41,5 +41,6 @@ public class GameConstants {
 	public static final Integer GL_FPS = 60;
 	
 	public static final Integer PROTOCOL_INIT = 0;
+	public static final Integer PROTOCOL_FINISH = -1;
 	
 }
