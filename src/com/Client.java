@@ -111,14 +111,6 @@ public class Client extends Thread{
 	
 	}
 	
-	/**
-	 * Comprobar que el Display este activo
-	 * @return
-	 */
-	private Boolean isTx() {
-		return this.psatellite.isWorkingProcess();
-	}
-	
 	private Boolean isConnectedStream() {
 		Boolean isConnected = Boolean.TRUE;
 		if ((out == null) || (this.in == null)) {
