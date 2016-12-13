@@ -104,7 +104,9 @@ public class Client extends Thread{
 			this.in.close();
 			
 		} catch (IOException io) {
-			io.printStackTrace();
+			//io.printStackTrace();
+			log.info("SERVER CLOSE CONNECTION");
+			
 		} catch (InterruptedException ie) {
 			ie.printStackTrace();
 		}
